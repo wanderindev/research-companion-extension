@@ -1,0 +1,248 @@
+:root {
+  color-scheme: light dark;
+  font-family: system-ui, sans-serif;
+}
+
+body {
+  width: 360px;
+  margin: 0;
+  padding: 12px 14px 14px;
+  font-size: 13px;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+h1 {
+  font-size: 15px;
+  margin: 0;
+}
+
+h2 {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  opacity: 0.7;
+  margin: 0;
+}
+
+.badge {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: color-mix(in srgb, seagreen 20%, transparent);
+  color: seagreen;
+  max-width: 180px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.suggestions {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+.suggestions li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 2px;
+  border-bottom: 1px solid color-mix(in srgb, currentColor 12%, transparent);
+}
+
+.suggestions .meta {
+  flex: 1;
+  min-width: 0;
+}
+
+.suggestions .title {
+  display: block;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.suggestions .category {
+  opacity: 0.65;
+  font-size: 12px;
+}
+
+button {
+  font: inherit;
+  padding: 5px 10px;
+  border-radius: 6px;
+  border: 1px solid color-mix(in srgb, currentColor 25%, transparent);
+  background: transparent;
+  cursor: pointer;
+}
+
+button:hover:not(:disabled) {
+  background: color-mix(in srgb, currentColor 8%, transparent);
+}
+
+button:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.error {
+  color: crimson;
+  white-space: pre-wrap;
+}
+
+#run-panel {
+  border: 1px solid color-mix(in srgb, currentColor 15%, transparent);
+  border-radius: 8px;
+  padding: 8px 10px;
+  margin-bottom: 12px;
+}
+
+#run-panel p {
+  margin: 4px 0;
+}
+
+.phase {
+  font-weight: 600;
+}
+
+.phase-done {
+  color: seagreen;
+}
+
+.phase-failed {
+  color: crimson;
+}
+
+.run-detail {
+  opacity: 0.75;
+  font-size: 12px;
+}
+
+.fact-check-head {
+  margin-top: 12px;
+}
+
+.fact-check-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 4px 2px;
+  font-size: 12px;
+}
+
+.dry-run {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 4px 0 8px;
+  font-size: 12px;
+  opacity: 0.85;
+}
+
+.hint {
+  margin: 4px 0 0;
+  font-size: 11px;
+  opacity: 0.7;
+}
+
+.item-results {
+  margin: 6px 0 0;
+  padding-left: 0;
+  list-style: none;
+  font-size: 12px;
+}
+
+.item-results li {
+  margin: 2px 0;
+}
+
+.section-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.item-audit summary {
+  cursor: pointer;
+}
+
+.item-audit summary::marker {
+  opacity: 0.6;
+}
+
+.item-audit .audit-body {
+  margin: 4px 0 6px 14px;
+  padding-left: 8px;
+  border-left: 2px solid color-mix(in srgb, currentColor 15%, transparent);
+  max-height: 260px;
+  overflow-y: auto;
+}
+
+.audit-body h4 {
+  margin: 6px 0 2px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  opacity: 0.7;
+}
+
+.audit-body ul {
+  margin: 0;
+  padding-left: 14px;
+}
+
+.audit-body li {
+  margin: 1px 0;
+  overflow-wrap: anywhere;
+}
+
+.audit-body .before {
+  color: crimson;
+  text-decoration: line-through;
+  text-decoration-color: color-mix(in srgb, crimson 60%, transparent);
+}
+
+.audit-body .after {
+  color: seagreen;
+}
+
+.audit-body .kind {
+  opacity: 0.7;
+}
+
+.audit-body .example {
+  opacity: 0.7;
+  font-style: italic;
+}
+
+.audit-body pre {
+  margin: 2px 0;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font-size: 11px;
+}
+
+.audit-body .gate {
+  opacity: 0.85;
+}
+
+.items-per-run input {
+  width: 3.2em;
+  margin: 0 6px;
+}

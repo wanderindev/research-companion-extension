@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>PIC Companion</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <header>
+      <h1>PIC Companion</h1>
+      <span id="auth-badge" class="badge" hidden></span>
+    </header>
+
+    <section id="signed-out" hidden>
+      <p>Not signed in. Open the admin panel (magic link) and the extension picks the session up automatically.</p>
+      <button id="open-admin" type="button">Open admin panel</button>
+    </section>
+
+    <section id="run-panel" hidden>
+      <div class="section-head">
+        <h2>Current run</h2>
+        <span class="section-actions">
+          <button id="copy-run" type="button" title="Copy the full run state as JSON">Copy state</button>
+          <button id="cancel-run" type="button">Reset</button>
+        </span>
+      </div>
+      <p><span id="run-phase" class="phase"></span></p>
+      <p id="run-suggestion" class="run-detail"></p>
+      <p id="run-note" class="run-detail" hidden></p>
+      <p id="run-error" class="error" hidden></p>
+    </section>
+
+    <section id="signed-in" hidden>
+      <div class="section-head">
+        <h2>Suggestions available for research</h2>
+        <button id="refresh" type="button" title="Refresh">&#x21bb;</button>
+      </div>
+      <label class="dry-run">
+        <input id="dry-run" type="checkbox" />
+        Dry run (claude.ai: compose but don't send · Grammarly: verify round trip, accept nothing)
+      </label>
+      <ul id="suggestions" class="suggestions"></ul>
+      <p id="empty" hidden>No approved suggestions without research. Nothing to do 🎉</p>
+
+      <div class="section-head fact-check-head">
+        <h2>Fact-check (deep research)</h2>
+      </div>
+      <div class="fact-check-row">
+        <span id="fc-pending">…</span>
+        <button id="fc-start" type="button" disabled>Start</button>
+      </div>
+
+      <div class="section-head fact-check-head">
+        <h2>Grammar check (Grammarly)</h2>
+      </div>
+      <div class="fact-check-row">
+        <span id="gr-pending">…</span>
+        <label class="items-per-run" title="Article/language items per Start (1–10)">
+          <input id="gr-limit" type="number" min="1" max="10" step="1" />
+        </label>
+        <button id="gr-start" type="button" disabled>Start</button>
+      </div>
+      <p class="hint">Items per Start (1–10); dry run pastes, reads back and verifies the round trip without accepting anything.</p>
+    </section>
+
+    <p id="error" class="error" hidden></p>
+
+    <script type="module" src="popup.js"></script>
+  </body>
+</html>

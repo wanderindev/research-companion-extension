@@ -1,0 +1,68 @@
+{
+  "manifest_version": 3,
+  "name": "PIC Companion",
+  "version": "0.1.0",
+  "description": "Automates Panama In Context content pipelines by driving claude.ai and the PIC admin API.",
+  "permissions": [
+    "storage",
+    "alarms",
+    "tabs",
+    "scripting"
+  ],
+  "host_permissions": [
+    "https://panamaincontext.com/*",
+    "https://www.panamaincontext.com/*",
+    "https://claude.ai/*",
+    "http://localhost:8000/*",
+    "https://app.grammarly.com/*",
+    "https://coda.grammarly.com/*"
+  ],
+  "background": {
+    "service_worker": "src/background/index.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://panamaincontext.com/admin*",
+        "https://www.panamaincontext.com/admin*",
+        "http://localhost:3000/admin*",
+        "http://localhost:5173/admin*"
+      ],
+      "js": [
+        "src/content/admin-token.js"
+      ],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": [
+        "https://claude.ai/*"
+      ],
+      "js": [
+        "src/content/claude/selectors.js",
+        "src/content/claude/wait-utils.js",
+        "src/content/claude/dom-utils.js",
+        "src/content/claude/claude-api.js",
+        "src/content/claude/main.js"
+      ],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": [
+        "https://coda.grammarly.com/d/*"
+      ],
+      "js": [
+        "src/content/grammarly/selectors.js",
+        "src/content/claude/wait-utils.js",
+        "src/content/claude/dom-utils.js",
+        "src/content/grammarly/serializer.js",
+        "src/content/grammarly/main.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": {
+    "default_popup": "src/popup/popup.html",
+    "default_title": "PIC Companion"
+  }
+}
