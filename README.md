@@ -17,7 +17,7 @@ The platform this extension drives has its own public snapshot: [**ai-powered-co
 One popup, three run types:
 
 - **Research runs.** Pick an approved article suggestion; the extension asks the backend for a deep-research prompt, opens claude.ai, composes and sends the research (verifying model, effort and the Research toggle on the way), dismisses the connectors modal, polls until the research completes, extracts the report markdown through claude.ai's conversation API, and uploads it back for validation and review.
-- **Fact-check runs.** Drains the pipeline's *needs deep research* claim queue: fetch a batch of up to 25 claims as a verification prompt, run it through deep research, upload the verdicts, and **chain the next batch automatically** until the queue is empty.
+- **Fact-check runs.** Drains the pipeline's *needs deep research* claim queue: fetch a batch of up to 25 claims as a verification prompt, run it through deep research, upload the verdicts, and **chain the next batch automatically** until the queue is empty or a 10-batch safety backstop ends the run.
 - **Grammar runs.** Proofread a batch of 1 to 10 items, where each item is one article in one language. For each one the extension fetches the article body as HTML, pastes it into a fresh Grammarly document, accepts suggestions under a per-language policy, runs Grammarly's Humanizer, makes a second accept pass, reads the result back out of the editor with a strict serializer, and sends it to the backend, which checks every changed paragraph for a change in meaning before writing it.
 
 All three share a **dry-run mode (on by default)**. For the deep-research runs it performs every step up to, but never including, pressing Send; for grammar runs it accepts nothing and checks that the article survives the round trip through Grammarly unchanged. All three survive popup close, tab close and Chrome killing the service worker mid-run (which MV3 does constantly; see the write-up for the keepalive, watchdog and detached-loop design).
@@ -27,8 +27,12 @@ All three share a **dry-run mode (on by default)**. For the deep-research runs i
 ```
 manifest.json                MV3 manifest (host permissions: the PIC site, claude.ai, Grammarly)
 src/background/              Service worker: run state machines, PIC API client
+  index.js                   Worker entry: message router, alarms, keepalive
+  state.js                   Persisted settings and run state
+  pic-api.js                 PIC admin API client
   run.js                     Research and fact-check runs, shared run helpers, watchdog
   grammar-run.js             Grammar runs: queue, per-language policy, item phases
+  grammar-phases.js          Shared grammar phase constants
   grammar-guards.js          Pure pre-paste checks (heading levels)
 src/content/admin-token.js   Captures the admin session token from the PIC admin SPA
 src/content/claude/          claude.ai driver: selector registry, DOM utils,
